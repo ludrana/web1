@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список задач</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <h2>Список задач</h2>
+</header>
+<div class="container">
+    <section class="new-task">
+        <label for="new-task-input">
+            Новая задача
+            <input id="new-task-input" type="text" placeholder="Название задачи...">
+        </label>
+        <button class="btn">+ Добавить</button>
+    </section>
+    <section class="task-list">
+        <div class="status backlog">
+            <h3>Бэклог</h3>
+            <div class="outer">
+                <div class="inner">Выучить JS</div>
+            </div>
+            <div class="outer">
+                <div class="inner">Выучить React</div>
+            </div>
+            <div class="outer">
+                <div class="inner">Сделать домашку</div>
+            </div>
+        </div>
+        <div class="status in-progress">
+            <h3>В процессе</h3>
+            <div class="outer">
+                <div class="inner">Выпить смузи</div>
+            </div>
+            <div class="outer">
+                <div class="inner">Попить воды</div>
+            </div>
+        </div>
+        <div class="status done">
+            <h3>Готово</h3>
+            <div class="outer">
+                <div class="inner">Позвонить маме</div>
+            </div>
+            <div class="outer">
+                <div class="inner">Погладить кота</div>
+            </div>
+        </div>
+        <div class="status trash">
+            <h3>Корзина</h3>
+            <div class="outer">
+                <div class="inner">Сходить погулять</div>
+            </div>
+            <div class="outer">
+                <div class="inner">Прочитать Войну и Мир</div>
+            </div>
+            <button class="btn clear">× Очистить</button>
+        </div>
+    </section>
+</div>
+</body>
+</html>

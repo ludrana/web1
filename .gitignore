@@ -1,0 +1,7 @@
+.idea
+.node_modules
+eslint.config.mjs
+package.json
+yarn.lock
+.stylelintrc.json
+package-lock.json
