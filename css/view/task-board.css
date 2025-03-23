@@ -1,0 +1,18 @@
+.task-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 3em;
+    width: 100%;
+    margin-top: 1.2em;
+
+    font-size: var(--font-size-list);
+}
+
+.clear {
+    background-color: #dc3545;
+    color: white;
+}
+
+.clear:active {
+    background-color: #c12635;
+}

@@ -1,0 +1,10 @@
+header {
+    padding: 0 5%;
+    width: 100%;
+    box-sizing: border-box;
+
+    background-color: #007bff;
+    color: white;
+
+    text-align: left;
+}

@@ -1,0 +1,17 @@
+.outer {
+    padding: 0;
+    border-radius: 0.4em;
+
+    background-color: var(--status-bg-color);
+}
+
+.inner {
+    padding: 0.4em;
+    margin-left: 0.5em;
+    border-radius: 0.4em;
+    align-content: center;
+    min-height: 2em;
+
+    background: white;
+    overflow: hidden;
+}
