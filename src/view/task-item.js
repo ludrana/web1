@@ -1,21 +1,22 @@
 import {createElement, loadStylesheet} from '../render.js';
 
-function createTaskItemComponentTemplate(text) {
+function createTaskItemComponentTemplate(task) {
+    const {name} = task;
     return (
         `<div class="outer">
-            <div class="inner">${text}</div>
+            <div class="inner">${name}</div>
         </div>`
     );
 }
 
 export default class TaskItemComponent {
-    constructor(text) {
-        this.text = text;
+    constructor({task}) {
+        this.task = task;
         loadStylesheet('css/view/task-item.css');
     }
 
     getTemplate() {
-        return createTaskItemComponentTemplate(this.text);
+        return createTaskItemComponentTemplate(this.task);
     }
 
     getElement() {

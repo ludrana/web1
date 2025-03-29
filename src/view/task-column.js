@@ -1,24 +1,26 @@
 import {createElement, loadStylesheet} from '../render.js';
+import {Status, StatusLabel} from "../model/status.js";
 
-function createTaskColumnComponentTemplate(text, className) {
+function createTaskColumnComponentTemplate(status) {
     return (
-        `<div class="status ${className}">
-            <h3>${text}</h3>            
+        `<div class="status ${Status[status]}">
+            <h3>${StatusLabel[Status[status]]}</h3>            
         </div>`
     );
 }
 
 export default class TaskColumnComponent {
-    constructor(text, className) {
-        this.text = text;
-        this.className = className;
+    #status = null;
+
+    constructor({status: status}) {
+        this.#status = status;
 
         loadStylesheet('css/view/task-column.css');
-        loadStylesheet(`css/property/${className}.css`);
+        loadStylesheet(`css/property/${Status[this.#status]}.css`);
     }
 
     getTemplate() {
-        return createTaskColumnComponentTemplate(this.text, this.className);
+        return createTaskColumnComponentTemplate(this.#status);
     }
 
     getElement() {
