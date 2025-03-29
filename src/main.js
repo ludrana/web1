@@ -11,33 +11,25 @@ const newTaskContainer = document.querySelector('.new-task');
 const taskListContainer = document.querySelector('.task-section')
 
 const taskBoard = new TaskBoardComponent();
-const backlog = new TaskColumnComponent('Бэклог', 'backlog');
-const inProgress = new TaskColumnComponent('В процессе', 'in-progress');
-const done = new TaskColumnComponent('Готово', 'done');
-const trash = new TaskColumnComponent('Корзина', 'trash');
+
+const columnsConfig = [
+    { title: 'Бэклог', cssClass: 'backlog', id: 0 },
+    { title: 'В процессе', cssClass: 'in-progress', id: 1 },
+    { title: 'Готово', cssClass: 'done', id: 2 },
+    { title: 'Корзина', cssClass: 'trash', id: 3 }
+];
+const columns = {};
+columnsConfig.forEach(({ title, cssClass, id }) => {
+    columns[id] = new TaskColumnComponent(title, cssClass);
+    render(columns[id], taskBoard.getElement()[0]);
+});
 
 render(new HeaderComponent(), bodyContainer, RenderPosition.AFTERBEGIN);
 render(new NewTaskComponent(), newTaskContainer);
 render(taskBoard, taskListContainer);
 
-render(backlog, taskBoard.getElement()[0]);
-render(inProgress, taskBoard.getElement()[0]);
-render(done, taskBoard.getElement()[0]);
-render(trash, taskBoard.getElement()[0]);
-
-render(new TaskItemComponent('Название первой задачи'), backlog.getElement()[0]);
-render(new TaskItemComponent('Название первой задачи'), backlog.getElement()[0]);
-render(new TaskItemComponent('Название первой задачи'), backlog.getElement()[0]);
-render(new TaskItemComponent('Название первой задачи'), backlog.getElement()[0]);
-render(new TaskItemComponent('Название первой задачи'), inProgress.getElement()[0]);
-render(new TaskItemComponent('Название первой задачи'), inProgress.getElement()[0]);
-render(new TaskItemComponent('Название первой задачи'), inProgress.getElement()[0]);
-render(new TaskItemComponent('Название первой задачи'), inProgress.getElement()[0]);
-render(new TaskItemComponent('Название первой задачи'), done.getElement()[0]);
-render(new TaskItemComponent('Название первой задачи'), done.getElement()[0]);
-render(new TaskItemComponent('Название первой задачи'), done.getElement()[0]);
-render(new TaskItemComponent('Название первой задачи'), done.getElement()[0]);
-render(new TaskItemComponent('Название первой задачи'), trash.getElement()[0]);
-render(new TaskItemComponent('Название первой задачи'), trash.getElement()[0]);
-render(new TaskItemComponent('Название первой задачи'), trash.getElement()[0]);
-render(new TaskItemComponent('Название первой задачи'), trash.getElement()[0]);
+for (let columnId in columns) {
+    for (let i = 0; i < 4; i++) {
+        render(new TaskItemComponent('Название первой задачи'), columns[columnId].getElement()[0]);
+    }
+}
