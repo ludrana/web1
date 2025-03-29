@@ -1,5 +1,5 @@
 import {createElement, loadStylesheet} from '../render.js';
-import {Status, StatusLabel} from "../model/status.js";
+import {Status, StatusLabel} from "../enum/status.js";
 
 function createTaskColumnComponentTemplate(status) {
     return (

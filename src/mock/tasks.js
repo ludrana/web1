@@ -1,4 +1,4 @@
-import {Status} from "../model/status.js";
+import {Status} from "../enum/status.js";
 
 export const tasks = [
     {

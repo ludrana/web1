@@ -2,7 +2,7 @@ import TaskBoardComponent from '../view/task-board.js';
 import TaskColumnComponent from '../view/task-column.js';
 import TaskItemComponent from "../view/task-item.js";
 import {render} from '../render.js';
-import {Status} from "../model/status.js";
+import {Status} from "../enum/status.js";
 
 export default class TaskBoardPresenter {
     #taskBoardComponent = new TaskBoardComponent()
