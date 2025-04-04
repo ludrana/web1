@@ -1,18 +1,18 @@
 import {createElement, loadStylesheet} from '../render.js';
 
-function createTaskBoardComponentTemplate() {
+function createClearButtonComponentTemplate() {
     return (
-        `<div class="task-list"></div>`
+        `<button class="btn clear">× Очистить</button>`
     );
 }
 
-export default class TaskBoardComponent {
+export default class ClearButtonComponent {
     constructor() {
-        loadStylesheet('css/view/task-board.css');
+        loadStylesheet('css/view/clear-button.css');
     }
 
     getTemplate() {
-        return createTaskBoardComponentTemplate();
+        return createClearButtonComponentTemplate();
     }
 
     getElement() {

@@ -7,12 +7,3 @@
 
     font-size: var(--font-size-list);
 }
-
-.clear {
-    background-color: #dc3545;
-    color: white;
-}
-
-.clear:active {
-    background-color: #c12635;
-}

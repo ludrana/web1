@@ -1,0 +1,8 @@
+.clear {
+    background-color: #dc3545;
+    color: white;
+}
+
+.clear:active {
+    background-color: #c12635;
+}
