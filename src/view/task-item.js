@@ -1,4 +1,5 @@
-import {createElement, loadStylesheet} from '../render.js';
+import {loadStylesheet} from '../render.js';
+import {AbstractComponent} from "./abstract-component.js";
 
 function createTaskItemComponentTemplate(task) {
     const {name} = task;
@@ -9,25 +10,16 @@ function createTaskItemComponentTemplate(task) {
     );
 }
 
-export default class TaskItemComponent {
+export default class TaskItemComponent extends AbstractComponent {
+    #task;
+
     constructor({task}) {
-        this.task = task;
+        super();
+        this.#task = task;
         loadStylesheet('css/view/task-item.css');
     }
 
-    getTemplate() {
-        return createTaskItemComponentTemplate(this.task);
-    }
-
-    getElement() {
-        if (!this.element) {
-            this.element = createElement(this.getTemplate());
-        }
-
-        return this.element;
-    }
-
-    removeElement() {
-        this.element = null;
+    get template() {
+        return createTaskItemComponentTemplate(this.#task);
     }
 }

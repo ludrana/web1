@@ -1,1 +1,2 @@
-![div.webp](div.webp)
+![img.png](img.png)
+> rm -rf .git

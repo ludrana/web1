@@ -4,32 +4,32 @@ export const tasks = [
     {
         "id": 1,
         "name": "Выучить JS",
-        "status": Status.BACKLOG
+        "status": Status.TRASH
     },
     {
         "id": 2,
         "name": "Выучить React",
-        "status": Status.BACKLOG
+        "status": Status.TRASH
     },
     {
         "id": 3,
         "name": "Сделать домашку",
-        "status": Status.BACKLOG
+        "status": Status.TRASH
     },
     {
         "id": 4,
         "name": "Выпить смузи",
-        "status": Status.IN_PROGRESS
+        "status": Status.TRASH
     },
     {
         "id": 5,
         "name": "Попить воды",
-        "status": Status.IN_PROGRESS
+        "status": Status.TRASH
     },
     {
         "id": 6,
         "name": "Позвонить маме",
-        "status": Status.DONE
+        "status": Status.TRASH
     },
     {
         "id": 7,

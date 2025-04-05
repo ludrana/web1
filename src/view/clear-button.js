@@ -1,4 +1,5 @@
-import {createElement, loadStylesheet} from '../render.js';
+import {loadStylesheet} from '../render.js';
+import {AbstractComponent} from "./abstract-component.js";
 
 function createClearButtonComponentTemplate() {
     return (
@@ -6,24 +7,13 @@ function createClearButtonComponentTemplate() {
     );
 }
 
-export default class ClearButtonComponent {
+export default class ClearButtonComponent extends AbstractComponent {
     constructor() {
         loadStylesheet('css/view/clear-button.css');
+        super();
     }
 
-    getTemplate() {
+    get template() {
         return createClearButtonComponentTemplate();
-    }
-
-    getElement() {
-        if (!this.element) {
-            this.element = createElement(this.getTemplate());
-        }
-
-        return this.element;
-    }
-
-    removeElement() {
-        this.element = null;
     }
 }

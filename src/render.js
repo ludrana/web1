@@ -1,3 +1,5 @@
+import {AbstractComponent} from "./view/abstract-component.js";
+
 const RenderPosition = {
     BEFOREBEGIN: 'beforebegin',
     AFTERBEGIN: 'afterbegin',
@@ -28,7 +30,15 @@ function loadStylesheet(url) {
 }
 
 function render(component, container, place = RenderPosition.BEFOREEND) {
-    const elements = component.getElement();
+    if (!(component instanceof AbstractComponent)) {
+        throw new Error('Can render only components');
+    }
+
+    if (container === null) {
+        throw new Error('Container element doesn\'t exist');
+    }
+
+    const elements = component.element;
     for (let i = 0; i < elements.length; i++) {
         const element = elements[i];
         container.insertAdjacentElement(place, element);

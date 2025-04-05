@@ -1,4 +1,5 @@
-import {createElement, loadStylesheet} from '../render.js';
+import {loadStylesheet} from '../render.js';
+import {AbstractComponent} from "./abstract-component.js";
 
 function createHeaderComponentTemplate() {
     return (
@@ -8,24 +9,13 @@ function createHeaderComponentTemplate() {
     );
 }
 
-export default class HeaderComponent {
+export default class HeaderComponent extends AbstractComponent {
     constructor() {
         loadStylesheet('css/view/header.css');
+        super();
     }
 
-    getTemplate() {
+    get template() {
         return createHeaderComponentTemplate();
-    }
-
-    getElement() {
-        if (!this.element) {
-            this.element = createElement(this.getTemplate());
-        }
-
-        return this.element;
-    }
-
-    removeElement() {
-        this.element = null;
     }
 }

@@ -1,4 +1,5 @@
-import {createElement, loadStylesheet} from '../render.js';
+import {loadStylesheet} from '../render.js';
+import {AbstractComponent} from "./abstract-component.js";
 
 function createNewTaskComponentTemplate() {
     return (
@@ -10,24 +11,13 @@ function createNewTaskComponentTemplate() {
     );
 }
 
-export default class NewTaskComponent {
+export default class NewTaskComponent extends AbstractComponent {
     constructor() {
-        loadStylesheet('css/view/new-task.css')
+        loadStylesheet('css/view/new-task.css');
+        super();
     }
 
-    getTemplate() {
+    get template() {
         return createNewTaskComponentTemplate();
-    }
-
-    getElement() {
-        if (!this.element) {
-            this.element = createElement(this.getTemplate());
-        }
-
-        return this.element;
-    }
-
-    removeElement() {
-        this.element = null;
     }
 }

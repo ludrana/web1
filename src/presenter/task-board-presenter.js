@@ -4,9 +4,10 @@ import TaskItemComponent from "../view/task-item.js";
 import {render} from '../render.js';
 import {Status} from "../enum/status.js";
 import ClearButtonComponent from "../view/clear-button.js";
+import PlaceholderComponent from "../view/placeholder.js";
 
 export default class TaskBoardPresenter {
-    #taskBoardComponent = new TaskBoardComponent()
+    #taskBoardComponent = new TaskBoardComponent();
     #boardContainer = null;
     #taskModel = null;
     #boardTasks = [];
@@ -17,20 +18,51 @@ export default class TaskBoardPresenter {
     }
 
     init() {
-        this.#boardTasks = [...this.#taskModel.getTasks()];
+        this.#boardTasks = [...this.#taskModel.tasks];
+        this.#renderBoard();
+    }
 
+    #renderBoard() {
         render(this.#taskBoardComponent, this.#boardContainer);
-        for (let status in Status) {
-            const taskColumnComponent = new TaskColumnComponent({status});
-            render(taskColumnComponent, this.#taskBoardComponent.getElement()[0]);
-            for (let task of this.#boardTasks.filter(item => item.status === Status[status])) {
-                const taskItemComponent = new TaskItemComponent({task});
-                render(taskItemComponent, taskColumnComponent.getElement()[0]);
-            }
 
-            if (Status[status] === Status.TRASH) {
-                render(new ClearButtonComponent(), taskColumnComponent.getElement()[0])
+        Object.values(Status).forEach((status) => {
+            if (status === Status.TRASH) {
+                this.#renderTrashColumn();
+            } else {
+                this.#renderTaskColumn(status);
             }
+        });
+    }
+
+    #renderTaskColumn(status) {
+        const taskColumnComponent = new TaskColumnComponent({status});
+        render(taskColumnComponent, this.#taskBoardComponent.element[0]);
+
+        const tasksForStatus = this.#getTasksByStatus(this.#boardTasks, status);
+        if (tasksForStatus.length === 0) {
+            this.#renderPlaceholder(taskColumnComponent);
+        } else {
+            tasksForStatus.forEach((task) => this.#renderTask(task, taskColumnComponent));
         }
+
+        return taskColumnComponent;
+    }
+
+    #renderTrashColumn() {
+        const container = this.#renderTaskColumn(Status.TRASH);
+        render(new ClearButtonComponent(), container.element[0]);
+    }
+
+    #getTasksByStatus(boardTasks, status) {
+        return boardTasks.filter(item => item.status === status);
+    }
+
+    #renderTask(task, container) {
+        const taskItemComponent = new TaskItemComponent({task});
+        render(taskItemComponent, container.element[0]);
+    }
+
+    #renderPlaceholder(container) {
+        render(new PlaceholderComponent(), container.element[0]);
     }
 }
