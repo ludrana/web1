@@ -15,7 +15,16 @@ const taskBoardPresenter = new TaskBoardPresenter({
     taskModel: taskModel,
 });
 
+function handleNewTaskButtonClick() {
+    taskBoardPresenter.createTask();
+}
+
 render(new HeaderComponent(), bodyContainer, RenderPosition.AFTERBEGIN);
-render(new NewTaskComponent(), newTaskContainer);
+render(
+    new NewTaskComponent({
+        onClick: handleNewTaskButtonClick
+    }),
+    newTaskContainer
+);
 
 taskBoardPresenter.init();

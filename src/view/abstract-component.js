@@ -1,4 +1,4 @@
-import { createElement } from "../render.js";
+import {createElement} from "../render.js";
 
 export class AbstractComponent {
     #element = null;
@@ -23,5 +23,20 @@ export class AbstractComponent {
 
     removeElement() {
         this.#element = null;
+    }
+
+    loadStylesheet(url) {
+        if (!window.loadedStylesheets) {
+            window.loadedStylesheets = new Set();
+        }
+
+        if (!window.loadedStylesheets.has(url)) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = url;
+            document.head.appendChild(link);
+
+            window.loadedStylesheets.add(url);
+        }
     }
 }

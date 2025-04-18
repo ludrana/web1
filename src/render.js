@@ -11,22 +11,7 @@ function createElement(template) {
     const newElement = document.createElement('div');
     newElement.innerHTML = template;
 
-    return Array.from(newElement.children);
-}
-
-function loadStylesheet(url) {
-    if (!window.loadedStylesheets) {
-        window.loadedStylesheets = new Set();
-    }
-
-    if (!window.loadedStylesheets.has(url)) {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = url;
-        document.head.appendChild(link);
-
-        window.loadedStylesheets.add(url);
-    }
+    return newElement.lastElementChild;
 }
 
 function render(component, container, place = RenderPosition.BEFOREEND) {
@@ -38,11 +23,7 @@ function render(component, container, place = RenderPosition.BEFOREEND) {
         throw new Error('Container element doesn\'t exist');
     }
 
-    const elements = component.element;
-    for (let i = 0; i < elements.length; i++) {
-        const element = elements[i];
-        container.insertAdjacentElement(place, element);
-    }
+    container.insertAdjacentElement(place, component.element);
 }
 
-export {RenderPosition, createElement, render, loadStylesheet};
+export {RenderPosition, createElement, render};

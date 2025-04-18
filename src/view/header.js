@@ -1,4 +1,3 @@
-import {loadStylesheet} from '../render.js';
 import {AbstractComponent} from "./abstract-component.js";
 
 function createHeaderComponentTemplate() {
@@ -11,8 +10,8 @@ function createHeaderComponentTemplate() {
 
 export default class HeaderComponent extends AbstractComponent {
     constructor() {
-        loadStylesheet('css/view/header.css');
         super();
+        this.loadStylesheet('css/view/header.css');
     }
 
     get template() {

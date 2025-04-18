@@ -1,4 +1,3 @@
-import {loadStylesheet} from '../render.js';
 import {AbstractComponent} from "./abstract-component.js";
 
 function createTaskItemComponentTemplate(task) {
@@ -16,7 +15,7 @@ export default class TaskItemComponent extends AbstractComponent {
     constructor({task}) {
         super();
         this.#task = task;
-        loadStylesheet('css/view/task-item.css');
+        this.loadStylesheet('css/view/task-item.css');
     }
 
     get template() {

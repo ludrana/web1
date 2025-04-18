@@ -1,4 +1,3 @@
-import {loadStylesheet} from '../render.js';
 import {AbstractComponent} from "./abstract-component.js";
 
 function createPlaceholderComponentTemplate() {
@@ -9,8 +8,8 @@ function createPlaceholderComponentTemplate() {
 
 export default class PlaceholderComponent extends AbstractComponent {
     constructor() {
-        loadStylesheet('css/view/placeholder.css');
         super();
+        this.loadStylesheet('css/view/placeholder.css');
     }
 
     get template() {

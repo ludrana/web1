@@ -1,4 +1,3 @@
-import {loadStylesheet} from '../render.js';
 import {AbstractComponent} from "./abstract-component.js";
 
 function createTaskBoardComponentTemplate() {
@@ -9,8 +8,8 @@ function createTaskBoardComponentTemplate() {
 
 export default class TaskBoardComponent extends AbstractComponent {
     constructor() {
-        loadStylesheet('css/view/task-board.css');
         super();
+        this.loadStylesheet('css/view/task-board.css');
     }
 
     get template() {

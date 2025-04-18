@@ -10,16 +10,28 @@ export default class TaskBoardPresenter {
     #taskBoardComponent = new TaskBoardComponent();
     #boardContainer = null;
     #taskModel = null;
-    #boardTasks = [];
 
     constructor({boardContainer, taskModel}) {
         this.#boardContainer = boardContainer;
         this.#taskModel = taskModel;
+
+        this.#taskModel.addObserver(this.#handleModelChange.bind(this))
     }
 
     init() {
-        this.#boardTasks = [...this.#taskModel.tasks];
         this.#renderBoard();
+    }
+
+    createTask() {
+        const input = document.getElementById('new-task-input');
+        const title = input.value.trim();
+
+        if (title === '') {
+            return;
+        }
+
+        this.#taskModel.addTask(title);
+        input.value = '';
     }
 
     #renderBoard() {
@@ -36,9 +48,9 @@ export default class TaskBoardPresenter {
 
     #renderTaskColumn(status) {
         const taskColumnComponent = new TaskColumnComponent({status});
-        render(taskColumnComponent, this.#taskBoardComponent.element[0]);
+        render(taskColumnComponent, this.#taskBoardComponent.element);
 
-        const tasksForStatus = this.#getTasksByStatus(this.#boardTasks, status);
+        const tasksForStatus = this.#taskModel.getTasksByStatus(status);
         if (tasksForStatus.length === 0) {
             this.#renderPlaceholder(taskColumnComponent);
         } else {
@@ -50,19 +62,24 @@ export default class TaskBoardPresenter {
 
     #renderTrashColumn() {
         const container = this.#renderTaskColumn(Status.TRASH);
-        render(new ClearButtonComponent(), container.element[0]);
-    }
-
-    #getTasksByStatus(boardTasks, status) {
-        return boardTasks.filter(item => item.status === status);
+        render(new ClearButtonComponent(), container.element);
     }
 
     #renderTask(task, container) {
         const taskItemComponent = new TaskItemComponent({task});
-        render(taskItemComponent, container.element[0]);
+        render(taskItemComponent, container.element);
     }
 
     #renderPlaceholder(container) {
-        render(new PlaceholderComponent(), container.element[0]);
+        render(new PlaceholderComponent(), container.element);
+    }
+
+    #clearBoard() {
+        this.#taskBoardComponent.element.innerHTML = '';
+    }
+
+    #handleModelChange() {
+        this.#clearBoard();
+        this.#renderBoard();
     }
 }

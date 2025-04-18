@@ -1,4 +1,3 @@
-import {loadStylesheet} from '../render.js';
 import {AbstractComponent} from "./abstract-component.js";
 
 function createClearButtonComponentTemplate() {
@@ -9,8 +8,8 @@ function createClearButtonComponentTemplate() {
 
 export default class ClearButtonComponent extends AbstractComponent {
     constructor() {
-        loadStylesheet('css/view/clear-button.css');
         super();
+        this.loadStylesheet('css/view/clear-button.css');
     }
 
     get template() {

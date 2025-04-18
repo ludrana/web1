@@ -1,4 +1,3 @@
-import {loadStylesheet} from '../render.js';
 import {StatusLabel} from "../enum/status.js";
 import {AbstractComponent} from "./abstract-component.js";
 
@@ -17,8 +16,8 @@ export default class TaskColumnComponent extends AbstractComponent {
         super();
         this.#status = status;
 
-        loadStylesheet('css/view/task-column.css');
-        loadStylesheet(`css/property/${this.#status}.css`);
+        this.loadStylesheet('css/view/task-column.css');
+        this.loadStylesheet(`css/property/${this.#status}.css`);
     }
 
     get template() {

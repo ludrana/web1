@@ -1,11 +1,14 @@
 .new-task {
-    display: flex;
-    align-items: end;
     padding: 0.8em;
     border-radius: 0.4em;
     width: fit-content;
 
     background-color: white;
+}
+
+.new-task form {
+    display: flex;
+    align-items: end;
 }
 
 .new-task input {
