@@ -25,6 +25,11 @@ export default class TaskModel {
         this.#notifyObservers();
     }
 
+    clearTrash() {
+        this.#boardTasks = this.#boardTasks.filter(task => task.status !== Status.TRASH);
+        this.#notifyObservers();
+    }
+
     addObserver(observer) {
         this.#observers.push(observer);
     }

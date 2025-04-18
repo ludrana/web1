@@ -3,17 +3,18 @@ import TaskColumnComponent from '../view/task-column.js';
 import TaskItemComponent from "../view/task-item.js";
 import {render} from '../render.js';
 import {Status} from "../enum/status.js";
-import ClearButtonComponent from "../view/clear-button.js";
 import PlaceholderComponent from "../view/placeholder.js";
 
 export default class TaskBoardPresenter {
     #taskBoardComponent = new TaskBoardComponent();
     #boardContainer = null;
     #taskModel = null;
+    #clearButton = null;
 
-    constructor({boardContainer, taskModel}) {
+    constructor({boardContainer, taskModel, clearButton: clearButton}) {
         this.#boardContainer = boardContainer;
         this.#taskModel = taskModel;
+        this.#clearButton = clearButton;
 
         this.#taskModel.addObserver(this.#handleModelChange.bind(this))
     }
@@ -32,6 +33,10 @@ export default class TaskBoardPresenter {
 
         this.#taskModel.addTask(title);
         input.value = '';
+    }
+
+    clearTrash() {
+        this.#taskModel.clearTrash();
     }
 
     #renderBoard() {
@@ -62,7 +67,7 @@ export default class TaskBoardPresenter {
 
     #renderTrashColumn() {
         const container = this.#renderTaskColumn(Status.TRASH);
-        render(new ClearButtonComponent(), container.element);
+        render(this.#clearButton, container.element);
     }
 
     #renderTask(task, container) {
