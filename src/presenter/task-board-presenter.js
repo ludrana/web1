@@ -68,6 +68,10 @@ export default class TaskBoardPresenter {
     #renderTrashColumn() {
         const container = this.#renderTaskColumn(Status.TRASH);
         render(this.#clearButton, container.element);
+
+        if (this.#taskModel.getTasksByStatus(Status.TRASH).length === 0) {
+            this.#clearButton.element.disabled = true;
+        }
     }
 
     #renderTask(task, container) {
