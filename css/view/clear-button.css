@@ -6,3 +6,10 @@
 .clear:active {
     background-color: #c12635;
 }
+
+.clear:disabled {
+    background-color: #ccc;
+    color: #666;
+
+    cursor: not-allowed;
+}
