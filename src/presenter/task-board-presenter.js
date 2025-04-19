@@ -52,10 +52,13 @@ export default class TaskBoardPresenter {
     }
 
     #renderTaskColumn(status) {
-        const taskColumnComponent = new TaskColumnComponent({status});
-        render(taskColumnComponent, this.#taskBoardComponent.element);
-
         const tasksForStatus = this.#taskModel.getTasksByStatus(status);
+        const taskColumnComponent = new TaskColumnComponent({
+            status: status,
+            onDrop: this.#handleTaskDrop.bind(this),
+        });
+
+        render(taskColumnComponent, this.#taskBoardComponent.element);
         if (tasksForStatus.length === 0) {
             this.#renderPlaceholder(taskColumnComponent);
         } else {
@@ -69,9 +72,7 @@ export default class TaskBoardPresenter {
         const container = this.#renderTaskColumn(Status.TRASH);
         render(this.#clearButton, container.element);
 
-        if (this.#taskModel.getTasksByStatus(Status.TRASH).length === 0) {
-            this.#clearButton.element.disabled = true;
-        }
+        this.#clearButton.element.disabled = this.#taskModel.getTasksByStatus(Status.TRASH).length === 0;
     }
 
     #renderTask(task, container) {
@@ -90,5 +91,9 @@ export default class TaskBoardPresenter {
     #handleModelChange() {
         this.#clearBoard();
         this.#renderBoard();
+    }
+
+    #handleTaskDrop(newTaskId, status, targetTaskId, isTop) {
+        this.#taskModel.updateTask(newTaskId, status, targetTaskId, isTop);
     }
 }
