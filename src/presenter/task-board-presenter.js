@@ -4,39 +4,54 @@ import TaskItemComponent from "../view/task-item.js";
 import {render} from '../render.js';
 import {Status} from "../enum/status.js";
 import PlaceholderComponent from "../view/placeholder.js";
+import {UserAction} from "../enum/user-action.js";
 
 export default class TaskBoardPresenter {
     #taskBoardComponent = new TaskBoardComponent();
     #boardContainer = null;
     #taskModel = null;
     #clearButton = null;
+    #loading = null
 
-    constructor({boardContainer, taskModel, clearButton: clearButton}) {
+    constructor(
+        {
+            boardContainer,
+            taskModel,
+            clearButton: clearButton,
+            loading: loading,
+        }
+    ) {
         this.#boardContainer = boardContainer;
         this.#taskModel = taskModel;
         this.#clearButton = clearButton;
+        this.#loading = loading;
 
-        this.#taskModel.addObserver(this.#handleModelChange.bind(this))
+        this.#taskModel.addObserver(this.#handleModelEvent.bind(this))
     }
 
-    init() {
-        this.#renderBoard();
+    async init() {
+        render(this.#loading, this.#boardContainer);
+        await this.#taskModel.init();
     }
 
-    createTask() {
+    async createTask() {
         const input = document.getElementById('new-task-input');
-        const title = input.value.trim();
+        const name = input.value.trim();
 
-        if (title === '') {
+        if (name === '') {
             return;
         }
 
-        this.#taskModel.addTask(title);
-        input.value = '';
+        try {
+            await this.#taskModel.addTask(name);
+            input.value = '';
+        } catch (e) {
+            console.error('Ошибка при создании задачи:', e)
+        }
     }
 
-    clearTrash() {
-        this.#taskModel.clearTrash();
+    async clearTrash() {
+        await this.#taskModel.clearTrash();
     }
 
     #renderBoard() {
@@ -85,15 +100,23 @@ export default class TaskBoardPresenter {
     }
 
     #clearBoard() {
-        this.#taskBoardComponent.element.innerHTML = '';
+        console.log('we good?')
+        this.#boardContainer.innerHTML = '';
     }
 
-    #handleModelChange() {
-        this.#clearBoard();
-        this.#renderBoard();
+    #handleModelEvent(event, payload) {
+        switch (event) {
+            case UserAction.ADD_TASK:
+            case UserAction.UPDATE_TASK:
+            case UserAction.DELETE_TASK:
+            default:
+                this.#clearBoard();
+                this.#renderBoard();
+                break;
+        }
     }
 
-    #handleTaskDrop(newTaskId, status, targetTaskId, isTop) {
-        this.#taskModel.updateTask(newTaskId, status, targetTaskId, isTop);
+    async #handleTaskDrop(newTaskId, status, targetTaskId, isTop) {
+        await this.#taskModel.updateTask(newTaskId, status, targetTaskId, isTop);
     }
 }
