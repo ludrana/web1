@@ -1,2 +1,1 @@
-![img.png](img.png)
-> rm -rf .git
+![img.jpg](img.jpg)
