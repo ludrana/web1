@@ -85,6 +85,7 @@ export default class TaskModel extends Observable{
 
         try {
             await Promise.all(tasks.map(el => this.#apiService.deleteTask(el.id)));
+            this.#boardTasks = this.#boardTasks.filter(task => task.status !== Status.TRASH);
 
             this._notify(UserAction.DELETE_TASK, {status: Status.TRASH});
         } catch (e) {

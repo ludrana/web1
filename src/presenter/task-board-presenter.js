@@ -100,8 +100,8 @@ export default class TaskBoardPresenter {
     }
 
     #clearBoard() {
-        console.log('we good?')
         this.#boardContainer.innerHTML = '';
+        this.#taskBoardComponent.element.innerHTML = '';
     }
 
     #handleModelEvent(event, payload) {
